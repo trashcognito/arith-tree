@@ -12,6 +12,7 @@ class Arithmetic {
     virtual Arithmetic *derivative(std::string varname) = 0;
     virtual double compute(std::map<std::string, double> &values) = 0;    
     virtual void display(std::ostream &output) const = 0;
+    virtual Arithmetic *optimize() const = 0;
 
     Addition *operator+(Arithmetic *other);
     Multiplication *operator*(Arithmetic *other);
@@ -29,6 +30,7 @@ class Addition : public Arithmetic {
     virtual Arithmetic *derivative(std::string varname);
     virtual double compute(std::map<std::string, double> &values);
     virtual void display(std::ostream &output) const;
+    virtual Arithmetic *optimize() const;
     Addition(Arithmetic *lhs, Arithmetic *rhs);
 };
 
@@ -40,6 +42,7 @@ class Multiplication : public Arithmetic {
     virtual Arithmetic *derivative(std::string varname);
     virtual double compute(std::map<std::string, double> &values);
     virtual void display(std::ostream &output) const;
+    virtual Arithmetic *optimize() const;
     Multiplication(Arithmetic *lhs, Arithmetic *rhs);
 };
 
@@ -51,6 +54,7 @@ class Division : public Arithmetic {
     virtual Arithmetic *derivative(std::string varname);
     virtual double compute(std::map<std::string, double> &values);
     virtual void display(std::ostream &output) const;
+    virtual Arithmetic *optimize() const;
     Division(Arithmetic *lhs, Arithmetic *rhs);
 };
 
@@ -62,16 +66,18 @@ class Subtraction : public Arithmetic {
     virtual Arithmetic *derivative(std::string varname);
     virtual double compute(std::map<std::string, double> &values);
     virtual void display(std::ostream &output) const;
+    virtual Arithmetic *optimize() const;
     Subtraction(Arithmetic *lhs, Arithmetic *rhs);
 };
 
 class Constant : public Arithmetic {
-    private:
-    double c;
     public:
+    //moved to public to make stuff easier
+    const double c;
     virtual Arithmetic *derivative(std::string varname);
     virtual double compute(std::map<std::string, double> &values);
     virtual void display(std::ostream &output) const;
+    virtual Arithmetic *optimize() const;
     Constant(double c);
 };
 
@@ -84,6 +90,7 @@ class ConstExponentiation : public Arithmetic {
     virtual Arithmetic *derivative(std::string varname);
     virtual double compute(std::map<std::string, double> &values);
     virtual void display(std::ostream &output) const;
+    virtual Arithmetic *optimize() const;
     ConstExponentiation(Arithmetic *lhs, double rhs);
 };
 
@@ -95,5 +102,6 @@ class Variable : public Arithmetic {
     virtual Arithmetic *derivative(std::string varname);
     virtual double compute(std::map<std::string, double> &values);
     virtual void display(std::ostream &output) const;
+    virtual Arithmetic *optimize() const;
     Variable(std::string name);
 };

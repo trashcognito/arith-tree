@@ -9,6 +9,9 @@ int main(int argc, char *kwargs[]) {
     auto df = f->derivative("x");
     std::cout << "\nDerivative: ";
     df->display(std::cout);
+    std::cout << "\nOptimized: ";
+    auto odf = df->optimize();
+    odf->display(std::cout);
     std::cout << "\n";
     return 0;
 }
